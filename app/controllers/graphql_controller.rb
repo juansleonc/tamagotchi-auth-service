@@ -13,7 +13,7 @@ class GraphqlController < ApplicationController
     context = {
       current_user:
     }
-    result = AppSchema.execute(query, variables:, context:, operation_name:)
+    result = AuthServiceSchema.execute(query, variables:, context:, operation_name:)
     render json: result
   rescue StandardError => e
     raise e unless Rails.env.development?
