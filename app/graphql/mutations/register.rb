@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Mutations
   class Register < BaseMutation
     argument :email, String, required: true
@@ -9,13 +11,13 @@ module Mutations
     field :errors, [String], null: false
 
     def resolve(email:, password:, password_confirmation:)
-      user = User.new(email: email, password: password, password_confirmation: password_confirmation)
+      user = User.new(email:, password:, password_confirmation:)
 
       if user.save
         token = encode_token(user_id: user.id.to_s)
         {
-          user: user,
-          token: token,
+          user:,
+          token:,
           errors: []
         }
       else

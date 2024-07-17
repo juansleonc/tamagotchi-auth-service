@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Mutations::Register, type: :request do
@@ -24,7 +26,7 @@ RSpec.describe Mutations::Register, type: :request do
         passwordConfirmation: 'password123'
       }
 
-      post '/graphql', params: { query: query, variables: variables }
+      post '/graphql', params: { query:, variables: }
 
       json = JSON.parse(response.body)
       data = json['data']['register']
@@ -43,7 +45,7 @@ RSpec.describe Mutations::Register, type: :request do
         passwordConfirmation: 'short'
       }
 
-      post '/graphql', params: { query: query, variables: variables }
+      post '/graphql', params: { query:, variables: }
 
       json = JSON.parse(response.body)
       data = json['data']['register']
@@ -51,8 +53,8 @@ RSpec.describe Mutations::Register, type: :request do
       expect(data['user']).to be_nil
       expect(data['token']).to be_nil
       expect(data['errors']).to include(
-        "Email is invalid",
-        "Password is too short (minimum is 6 characters)"
+        'Email is invalid',
+        'Password is too short (minimum is 6 characters)'
       )
     end
   end

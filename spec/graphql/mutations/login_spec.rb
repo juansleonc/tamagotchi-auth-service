@@ -1,8 +1,12 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Mutations::Login, type: :request do
   describe 'login mutation' do
-    let!(:user) { User.create(email: 'test@example.com', password: 'password123', password_confirmation: 'password123') }
+    let!(:user) do
+      User.create(email: 'test@example.com', password: 'password123', password_confirmation: 'password123')
+    end
 
     let(:query) do
       <<~GQL
@@ -25,7 +29,7 @@ RSpec.describe Mutations::Login, type: :request do
         password: 'password123'
       }
 
-      post '/graphql', params: { query: query, variables: variables }
+      post '/graphql', params: { query:, variables: }
 
       json = JSON.parse(response.body)
       data = json['data']['login']
@@ -43,7 +47,7 @@ RSpec.describe Mutations::Login, type: :request do
         password: 'wrongpassword'
       }
 
-      post '/graphql', params: { query: query, variables: variables }
+      post '/graphql', params: { query:, variables: }
 
       json = JSON.parse(response.body)
       data = json['data']['login']
